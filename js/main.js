@@ -1,58 +1,122 @@
-/*
+/*var imagenes=['img/bill.png',
+							'img/bill.png',
+							'img/bill.png',
+							'img/bill.png',
+							'img/bill.png'];
+
+var preguntas=['¿Qué es un Hacker?',
+							 '¿Qué es un Cracker?',
+							 '¿Cuando murio steve jobs?',
+							 '¿Como se llama la empresa a la que le debe su fortuna Bill Gates?'];
+
+var opciones=[['Un delincuente informático','Una persona estudiosa y experta en tecnología','Un virus muy peligroso.'],
+							['Un programa que le roba su Facebook.','Un programa que le roba su Facebook.','Un programa que le roba su Facebook.'],
+			];
+
+var cuestionario= document.getElementsByTagName('button');
+for (var i = 0; i < cuestionario.length; i++) {
+	 cuestionario[i].addEventListener('click',preguntas);
+}
+
+function preguntas(){
+			$("#img-header").attr("src",imagenes[i]);
+			$('#pregunta').empty()
+			$('#pregunta').append('<p>'+preguntas[i]+'</p>');
+		 }
+
 var i=0
 function click(){
 		i++;
 	}
-
 	if(opciones.length==4) {
 		$("#img-header").attr("src","img/bill.png");
 $('#pregunta').append('<h1>Ya acabo</h1>');
 
  }*/
-
-
 const abc = {
 
-	variable:{
-	total:null,
+variable:{
 	contador: 0,
-	p_correctas: 0,
 	respuestas: [],
+	respondidas:null,
 },
-	preguntas:{
-		P1:{
-			imagen: 'img/bill.png',
-			pregunta: '¿Como se llama la empresa a la que le debe su fortuna Bill Gates?',
-			opciones: {1:'Microsoft', 2:'Windows', 3:'IBM'},
 
+	preguntas:{
+		0:{
+			imagenes: 'img/bill.png',
+			pregunta: '¿Como se llama la empresa a la que le debe su fortuna Bill Gates?',
+			opciones: {A:'Microsoft', B:'Windows', C:'IBM'},
 		},
-		P2:{
-			imagen: 'img/hacker.png',
-			pregunta: '¿Qué es un hacker?',
-			opciones: {1:'Un delincuente informático', 2:"Persona estudiosa y experta en tecnología", 3:"Un virus muy peligroso"},
+		1:{
+			imagenes: 'img/hacker.png',
+			pregunta: '¿En cual de las clasificaciones de SOMBRERO esta un Hackers??',
+			opciones: {A:'Blanco', B:"Negro", C:"Azul"},
 		},
-		P3:{
-			imagen: 'img/ff.gif',
-			pregunta: '¿Cuando murio Steve Jobs?',
-			opciones: {1:'5 de octubre de 2011', 2:'5 de octubre de 2010', 3:'15 de noviembre de 2011'},
+		2:{
+			imagenes: 'img/steve-jobs.jpg',
+			pregunta: 'Cual fue la compañia creada por Steve Jobs despues de ser expulsado de Apple?',
+			opciones: {A:'Next', B:'Pixar', C:'Mac'},
 		},
 
 	},
 
+	iniciar : function(){
+		abc.variable.respondidas= Object.keys(abc.preguntas).length;
+		abc.crearPregunta();
+	},
+
 	crearPregunta : function(){
-		abc.eventos();
-		$("#prueba").empty();
-		let preguntaActual = abc.preguntas[abc.variable.contador];
-		$("img-header").html(`<img src="${preguntaActual.imagen}">`);
-		$("#prueba").append(
+		abc.validar();
+		$("#pregunta").empty();
+		var preguntaActual = abc.preguntas[abc.variable.contador];
+		$("#img-header").html(`<img src="${preguntaActual.imagenes}">`);
+		$("#pregunta").append(
 			`<h3 class="text-center"> ${preguntaActual.pregunta} </h3>
 			<div class="opciones row"></div>`
 		)
 
-	iniciar : function(){
-		abc.variable.total= Object.keys(abc.preguntas).length;
-		abc.crearPregunta();
-	}
+		$.each(preguntaActual.opciones, (key,value)=>{
+			var opcionP = '';
+			if (abc.variable.respuestas[abc.variable.contador]==value) {
+				opcionP = "elegido";
+			} else {
+				opcionP = "";
+			}
+			$('<div>').addClass(`col-md-4 ${opcionP}`).html(
+				`<button><span>${key}</span>${value}</button>`
+			).appendTo(".opciones").click((e)=>{
+				$(e.currentTarget).addClass('elegido');
+				abc.variable.respuestas[abc.variable.contador]=value;
+				var tiempo = setTimeout(()=>{
+					abc.siguiente();
+				}, 1200);
+			})
+		})
+	},
+
+	siguiente : function(){
+		abc.variable.contador++;
+		if(abc.variable.contador<abc.variable.respondidas){
+			abc.crearPregunta();
+		}else{
+			abc.mostrar();
+		}
+	},
+
+	mostrar: function(){
+		$("#img-header").html(`<img src="img/bill.png" width="30%">`);
+		$('#pregunta').empty();
+		$('#pregunta').append('<h2 class="text-center">Tus Respuestas</h2><div id="respuestas"></div>');
+
+		$.each(abc.variable.respuestas, (i,respuesta)=>{
+			$("#respuestas").append(`<p>${i+1}.
+																	${abc.preguntas[i].pregunta}
+																	${respuesta}</p>`)
+		})
+	},
+
+	validar: function(){
+	},
 }
 
 $(document).ready(abc.iniciar)

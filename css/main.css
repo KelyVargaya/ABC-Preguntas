@@ -19,7 +19,7 @@ header{
 
 button{
 	margin:5%;
-	width: 80%;
+	width: 95%;
 	height: 50px;
 	background: black;
 	border: 2px solid white !important;
@@ -29,7 +29,6 @@ button{
 	text-align: center;
 	cursor: pointer;
 	line-height: 40px;
-
 }
 button:hover{
 	background: white;
@@ -52,4 +51,9 @@ span:hover{
 	color:#26d426;
 	background: transparent;
 	border-right: 1px solid #26d426;
+}
+
+#img-header img{
+	width: 30%;
+
 }
