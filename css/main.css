@@ -1,0 +1,55 @@
+body{
+	background-image: url(../img/gg.gif);
+	background-size: cover;
+}
+
+header{
+	margin-top: 5%;
+}
+
+.botones{
+
+	font-family: 'Righteous', cursive;
+	font-size: 2.5vw;
+	color: 	white;
+	height: 300px;
+	margin: 5% 7% 2% 7%;
+	padding: 10px;
+}
+
+button{
+	margin:5%;
+	width: 80%;
+	height: 50px;
+	background: black;
+	border: 2px solid white !important;
+	color: 	#26d426;
+	font-family: 'Orbitron', sans-serif;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+	line-height: 40px;
+
+}
+button:hover{
+	background: white;
+	color: black;
+	cursor: pointer;
+}
+
+span{
+	color: white;
+	background: transparent;
+	float: left;
+	margin-top: 1.5%;
+	border-right: 1px solid white;
+	height: 38px;
+	width: 17%;
+	font-size: 2.8vw;
+}
+
+span:hover{
+	color:#26d426;
+	background: transparent;
+	border-right: 1px solid #26d426;
+}
